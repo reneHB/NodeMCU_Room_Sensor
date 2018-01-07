@@ -1,6 +1,6 @@
 # NodeMCU Room Sensor
 
-Code for a HomeKit compatible NodeMCU room sensor
+Code for a HomeKit compatible NodeMCU room sensor.
 
 
 ## Hardware
