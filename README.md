@@ -10,7 +10,7 @@ Code for a HomeKit compatible NodeMCU room sensor.
 * HC-SR501 PIR motion sensor
 * 10k Photoresistor
 
-![](wiring_diagram.png | width=10)
+![](wiring_diagram.png)
 
 ## Installation
 
