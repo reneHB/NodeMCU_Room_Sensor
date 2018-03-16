@@ -1,5 +1,5 @@
 /**
- * @file main.cpp
+ * @file bme280.h
  * @author René Reimann
  * @date 15.03.2018
  * @brief File containing code.
@@ -27,37 +27,14 @@
  *
  */
 
-#include <Arduino.h>
-#include <ESP8266WiFi.h>
+#include <stdint.h>
 
-// SSID and password for WiFi
-#include "wifi_data.h"
+#define BME_SCK 13
+#define BME_MISO 12
+#define BME_MOSI 11
+#define BME_CS 10
 
-#include "main.h"
-
-/**
- *  @brief function
- *
- *  extensive explanation
- *
- */
-void setup(void)
-{
-    pinMode(BUILTIN_LED, OUTPUT);
-    Serial.begin(9600);
-
-#if WIFI
-    Serial.print("Connecting to ");
-    Serial.println(WIFI_SSID);
-    WiFi.begin(WIFI_SSID, WIFI_Password);
-
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println("WiFi connected");
-#endif
-}
+#define SEALEVELPRESSURE_HPA (1013.25)
 
 /**
  *  @brief function
@@ -65,6 +42,28 @@ void setup(void)
  *  extensive explanation
  *
  */
-void loop(void)
-{
-}
+extern uint8_t BME280_Setup(void);
+
+/**
+ *  @brief function
+ *
+ *  extensive explanation
+ *
+ */
+extern float BME280_Temperature(void);
+
+/**
+ *  @brief function
+ *
+ *  extensive explanation
+ *
+ */
+extern float BME280_Pressure(void);
+
+/**
+ *  @brief function
+ *
+ *  extensive explanation
+ *
+ */
+extern float BME280_Humidity(void);

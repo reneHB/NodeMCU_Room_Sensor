@@ -1,5 +1,5 @@
 /**
- * @file main.cpp
+ * @file main.h
  * @author René Reimann
  * @date 15.03.2018
  * @brief File containing code.
@@ -27,44 +27,23 @@
  *
  */
 
-#include <Arduino.h>
-#include <ESP8266WiFi.h>
 
-// SSID and password for WiFi
-#include "wifi_data.h"
+// Features
+#define WIFI 1
 
-#include "main.h"
 
-/**
- *  @brief function
- *
- *  extensive explanation
- *
- */
-void setup(void)
-{
-    pinMode(BUILTIN_LED, OUTPUT);
-    Serial.begin(9600);
 
-#if WIFI
-    Serial.print("Connecting to ");
-    Serial.println(WIFI_SSID);
-    WiFi.begin(WIFI_SSID, WIFI_Password);
 
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println("WiFi connected");
-#endif
-}
 
-/**
- *  @brief function
- *
- *  extensive explanation
- *
- */
-void loop(void)
-{
-}
+
+#define D0 16
+#define D1 5 // I2C Bus SCL (clock)
+#define D2 4 // I2C Bus SDA (data)
+#define D3 0
+#define D4 2 // Same as "LED_BUILTIN", but inverted logic
+#define D5 14 // SPI Bus SCK (clock)
+#define D6 12 // SPI Bus MISO
+#define D7 13 // SPI Bus MOSI
+#define D8 15 // SPI Bus SS (CS)
+#define D9 3 // RX0 (Serial console)
+#define D10 1 // TX0 (Serial console)
