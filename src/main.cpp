@@ -33,7 +33,15 @@
 // SSID and password for WiFi
 #include "wifi_data.h"
 
+#include "bme280.h"
+#include "illumination.h"
+#include "motion.h"
 #include "main.h"
+
+
+
+ROOM_DATA  room;
+
 
 /**
  *  @brief function
@@ -43,8 +51,11 @@
  */
 void setup(void)
 {
-    pinMode(BUILTIN_LED, OUTPUT);
+    uint8_t  ret = 0;
+
     Serial.begin(9600);
+
+    delay(10000);
 
 #if WIFI
     Serial.print("Connecting to ");
@@ -57,6 +68,13 @@ void setup(void)
     }
     Serial.println("WiFi connected");
 #endif
+
+    Serial.println("Connecting to BME280...");
+    ret = BME280_Setup();
+    if (!ret) {
+        Serial.println("Could not find a valid BME280 sensor, check wiring!");
+        while (1) ;
+    }
 }
 
 /**
@@ -67,4 +85,30 @@ void setup(void)
  */
 void loop(void)
 {
+    room.temperature = BME280_Temperature();
+    room.humidity = BME280_Humidity();
+    room.pressure = BME280_Pressure();
+    room.illumination = 0;
+    room.motion = 0;
+
+    Serial.print("Temperature: ");
+    Serial.print(room.temperature);
+    Serial.println(" °C");
+
+    Serial.print("Humidity: ");
+    Serial.print(room.humidity);
+    Serial.println(" %");
+
+    Serial.print("Pressure: ");
+    Serial.print(room.pressure);
+    Serial.println(" hPa");
+
+    Serial.print("Illumination: ");
+    Serial.print(room.illumination);
+    Serial.println(" lux");
+
+    Serial.print("Motion: ");
+    Serial.println(room.motion);
+
+    delay(5000);
 }

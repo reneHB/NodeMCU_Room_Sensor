@@ -27,26 +27,28 @@
  *
  */
 
-#include <Wire.h>
-#include <SPI.h>
-#include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 #include "bme280.h"
 
 
+Adafruit_BME280  bme;
 
 uint8_t BME280_Setup(void)
 {
+    return (uint8_t)bme.begin(0x76);
 }
 
 float BME280_Temperature(void)
 {
+    return bme.readTemperature();
 }
 
 float BME280_Pressure(void)
 {
+    return bme.readPressure() / 100.0;
 }
 
 float BME280_Humidity(void)
 {
+    return bme.readHumidity();
 }

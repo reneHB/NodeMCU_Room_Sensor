@@ -1,5 +1,5 @@
 /**
- * @file bme280.h
+ * @file motion.cpp
  * @author René Reimann
  * @date 15.03.2018
  * @brief File containing code.
@@ -27,37 +27,4 @@
  *
  */
 
-#include <stdint.h>
-
-
-/**
- *  @brief function
- *
- *  extensive explanation
- *
- */
-extern uint8_t BME280_Setup(void);
-
-/**
- *  @brief function
- *
- *  extensive explanation
- *
- */
-extern float BME280_Temperature(void);
-
-/**
- *  @brief function
- *
- *  extensive explanation
- *
- */
-extern float BME280_Pressure(void);
-
-/**
- *  @brief function
- *
- *  extensive explanation
- *
- */
-extern float BME280_Humidity(void);
+#include "motion.h"

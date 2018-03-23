@@ -29,9 +29,7 @@
 
 
 // Features
-#define WIFI 1
-
-
+#define WIFI 0
 
 
 
@@ -47,3 +45,12 @@
 #define D8 15 // SPI Bus SS (CS)
 #define D9 3 // RX0 (Serial console)
 #define D10 1 // TX0 (Serial console)
+
+
+struct ROOM_DATA {
+    float temperature;
+    float pressure;
+    float humidity;
+    float illumination;
+    uint8_t motion;
+};
