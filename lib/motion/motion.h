@@ -28,3 +28,21 @@
  */
 
 #include <stdint.h>
+
+#define MOTION_PIN 16
+
+/**
+ *  @brief function
+ *
+ *  extensive explanation
+ *
+ */
+extern uint8_t MOTION_Setup(void);
+
+/**
+ *  @brief function
+ *
+ *  extensive explanation
+ *
+ */
+extern uint8_t MOTION_Read(void);

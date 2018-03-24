@@ -55,8 +55,6 @@ void setup(void)
 
     Serial.begin(9600);
 
-    delay(10000);
-
 #if WIFI
     Serial.print("Connecting to ");
     Serial.println(WIFI_SSID);
@@ -88,8 +86,8 @@ void loop(void)
     room.temperature = BME280_Temperature();
     room.humidity = BME280_Humidity();
     room.pressure = BME280_Pressure();
-    room.illumination = 0;
-    room.motion = 0;
+    room.illumination = LUX_read();
+    room.motion = MOTION_Read();
 
     Serial.print("Temperature: ");
     Serial.print(room.temperature);
@@ -110,5 +108,5 @@ void loop(void)
     Serial.print("Motion: ");
     Serial.println(room.motion);
 
-    delay(5000);
+    delay(1000);
 }

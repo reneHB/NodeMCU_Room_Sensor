@@ -27,4 +27,18 @@
  *
  */
 
+#include <Arduino.h>
+#include <ESP8266WiFi.h>
+
 #include "motion.h"
+
+
+extern uint8_t MOTION_Setup(void)
+{
+    pinMode(MOTION_PIN, INPUT);
+}
+
+extern uint8_t MOTION_Read(void)
+{
+    return !(digitalRead(MOTION_PIN));
+}

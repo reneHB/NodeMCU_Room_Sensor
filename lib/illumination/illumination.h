@@ -28,3 +28,11 @@
  */
 
 #include <stdint.h>
+
+/**
+ *  @brief function
+ *
+ *  extensive explanation
+ *
+ */
+extern float LUX_read(void);

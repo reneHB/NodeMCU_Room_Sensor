@@ -27,4 +27,10 @@
  *
  */
 
-# include "illumination.h"
+#include <ESP8266WiFi.h>
+#include "illumination.h"
+
+float LUX_read(void)
+{
+    return (1000.0 / (((float)analogRead(A0) * 3.3) / 1024.0)) * 3.3;
+}
