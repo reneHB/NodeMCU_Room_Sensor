@@ -29,7 +29,7 @@
 
 
 // Features
-#define WIFI 0
+#define WIFI 1
 
 
 

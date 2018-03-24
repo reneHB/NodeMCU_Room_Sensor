@@ -42,6 +42,12 @@
 
 ROOM_DATA  room;
 
+// Create an instance of the server
+// specify the port to listen on as an argument
+#if WIFI
+WiFiServer  server(80);
+string      readString;
+#endif
 
 /**
  *  @brief function
@@ -59,7 +65,7 @@ void setup(void)
     Serial.print("Connecting to ");
     Serial.println(WIFI_SSID);
     WiFi.begin(WIFI_SSID, WIFI_Password);
-
+    //WiFi.config(WIFI_IP, WIFI_GATEWAY, WIFI_NETMASK);
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.print(".");
@@ -73,6 +79,11 @@ void setup(void)
         Serial.println("Could not find a valid BME280 sensor, check wiring!");
         while (1) ;
     }
+
+    MOTION_Setup();
+
+    // Start the server
+    server.begin();
 }
 
 /**
@@ -83,6 +94,54 @@ void setup(void)
  */
 void loop(void)
 {
+    WiFiClient  client = server.available();
+    if (client) {
+        while (client.connected()) {
+            if (client.available()) {
+                char  c = client.read();
+
+                //read char by char HTTP request
+                if (readString.length() < 100) {
+                    //store characters to string
+                    readString += c;
+                }
+
+                //if HTTP request has ended
+                if (c == '\n') {
+                    client.println("HTTP/1.1 200 OK");
+                    client.println("Content-Type: application/json;charset=utf-8");
+                    client.println("Server: Arduino");
+                    client.println("Connnection: close");
+                    client.println();
+                    client.print("{");
+                    client.print("\"temperature\":");
+                    client.print(room.temperature);
+                    client.print(",");
+                    client.print("\"humidity\":");
+                    client.print(room.humidity);
+                    client.print("}");
+
+                    client.print(",");
+                    client.print("{");
+                    client.print("\"lightval\":");
+                    client.print(room.illumination);
+                    client.print(",");
+                    client.print("\"pirval\":");
+                    client.print(room.motion);
+                    client.print("}");
+                    client.println();
+
+                    //stopping client
+                    client.stop();
+
+                    //clearing string for next read
+                    readString = "";
+                }
+            }
+        }
+    }
+
+
     room.temperature = BME280_Temperature();
     room.humidity = BME280_Humidity();
     room.pressure = BME280_Pressure();
